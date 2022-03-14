@@ -14,6 +14,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("usuario");
+    await queryInterface.dropTable("rol");
   },
 };
