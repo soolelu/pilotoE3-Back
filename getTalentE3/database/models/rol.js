@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   rol.init(
     {
-      nombre: DataTypes.STRING,
+      solicitante: DataTypes.BOOLEAN,
+      empleador: DataTypes.BOOLEAN,
+      admin: DataTypes.BOOLEAN,
     },
     {
       sequelize,
@@ -17,3 +19,4 @@ module.exports = (sequelize, DataTypes) => {
   );
   return rol;
 };
+ 
