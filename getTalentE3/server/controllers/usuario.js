@@ -1,48 +1,49 @@
 const models = require("../../database/models");
 const { httpError, response } = require("../helpers/responses");
-const { clientNotFound, clientDeleted } = require("../helpers/constants.js");
+const { usuarioNotFound, usuarioDeleted } = require("../helpers/constants.js");
+const { usuario } = require(".");
 
 // EP to get all clients
-const getClients = async (req, res) => {
+const getUsuarios = async (req, res) => {
   try {
-    const getAllClients = await models.clients.findAll({
+    const getAllUsuarios = await models.usuario.findAll({
       where: {
         statusDelete: false,
       },
     });
 
-    return res.status(200).send(getAllClients);
+    return res.status(200).send(getAllUsuarios);
   } catch (error) {
     httpError(res, error);
   }
 };
 
 // EP to get client by id
-const getClientById = async (req, res) => {
+const getUsuarioById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const getClient = await models.clients.findOne({
+    const getUsuario = await models.clients.findOne({
       where: {
         id,
         statusDelete: false,
       },
     });
 
-    if (!getClient) return res.status(404).send(response(clientNotFound));
+    if (!getUsuario) return res.status(404).send(response(usuarioNotFound));
 
-    return res.status(200).send(getClient);
+    return res.status(200).send(getUsuario);
   } catch (error) {
     httpError(res, error);
   }
 };
 
 //EP to add client
-const addClient = async (req, res) => {
+const addUsuario = async (req, res) => {
   try {
     const { body } = req;
 
-    const client = await models.clients.create({
+    const client = await models.usuario.create({
       name: body.name,
       lastName: body.lastName,
       email: body.email,
@@ -56,61 +57,61 @@ const addClient = async (req, res) => {
 };
 
 //EP to update client
-const updateClient = async (req, res) => {
+const updateUsuario = async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
 
-    const client = await models.clients.findOne({
+    const client = await models.usuario.findOne({
       where: {
         id,
         statusDelete: false,
       },
     });
 
-    if (!client) return res.status(404).send(response(clientNotFound));
+    if (!usuario) return res.status(404).send(response(usuarioNotFound));
 
-    client.update({
+    usuario.update({
       name: body.name,
       lastName: body.lastName,
       email: body.email,
       phone: body.phone,
     });
 
-    return res.status(200).send(client);
+    return res.status(200).send(usuario);
   } catch (error) {
     httpError(res, error);
   }
 };
 
 //EP to "delete" client in this case is soft delete, change the value statusDelete true
-const deleteClient = async (req, res) => {
+const deleteUsuario = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const client = await models.clients.findOne({
+    const client = await models.usuario.findOne({
       where: {
         id,
         statusDelete: false,
       },
     });
 
-    if (!client) return res.status(404).send(response(clientNotFound));
+    if (!usuario) return res.status(404).send(response(usuarioNotFound));
 
-    client.update({
+    usuario.update({
       statusDelete: true,
     });
 
-    return res.status(200).send(response(clientDeleted));
+    return res.status(200).send(response(UsuarioDeleted));
   } catch (error) {
     httpError(res, error);
   }
 };
 
 module.exports = {
-  getClients,
-  getClientById,
-  addClient,
-  updateClient,
-  deleteClient,
+  getUsuarios,
+  getUsuarioById,
+  addUsuario,
+  updateUsuario,
+  deleteUsuario,
 };
