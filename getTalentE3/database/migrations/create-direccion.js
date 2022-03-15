@@ -7,7 +7,18 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-      }
+      },
+      pais: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
+      },
+      estado: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
+      },
+      municipio: {
+        type: Sequelize.STRING(50)
+      },
     });
   },
   async down(queryInterface, Sequelize) {

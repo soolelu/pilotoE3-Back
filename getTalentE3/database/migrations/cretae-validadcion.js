@@ -7,6 +7,16 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      cod_activacion: {
+        type: Sequelize.STRING(50)
+      },
+      cod_password_olvidada: {
+        type: Sequelize.STRING(50)
+      },
+      activacion_email: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       }
     });
   },

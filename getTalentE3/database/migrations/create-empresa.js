@@ -7,7 +7,18 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-      }
+      },
+      nombre: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
+      descripcion: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
+     // logotipo: {
+     //   type: Sequelize.STRING(30)
+     // },
     });
   },
   async down(queryInterface, Sequelize) {
