@@ -1,3 +1,5 @@
 module.exports = {
-  usuario: require("./usuario"),
+  clients: require("./clients"),
+  saucers: require("./saucers"),
+  orders: require("./orders"),
 };
