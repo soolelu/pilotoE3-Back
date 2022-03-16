@@ -17,7 +17,16 @@ module.exports = {
       activacion_email: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
-      }
+      },
+      id_usuario: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "usuario",
+          key: "id",
+        },
+        onUpdated: "CASCADE",
+        onDeleted: "CASCADE",
+      },
     });
   },
   async down(queryInterface, Sequelize) {
