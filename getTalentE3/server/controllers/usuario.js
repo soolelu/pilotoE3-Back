@@ -1,7 +1,7 @@
 const models = require("../../database/models");
 const { httpError, response } = require("../helpers/responses");
 const { usuarioNotFound, usuarioDeleted } = require("../helpers/constants.js");
-const usuario = require("../../database/models/usuario");
+//const usuario = require("../../database/models/usuario");
 
 // EP to get all clients
 const getUsuarios = async (req, res) => {
@@ -12,7 +12,7 @@ const getUsuarios = async (req, res) => {
       },
     });
 
-    return res.status(200).send(getAllUsuario);
+    return res.status(200).send(getAllUsuarios);
   } catch (error) {
     httpError(res, error);
   }
