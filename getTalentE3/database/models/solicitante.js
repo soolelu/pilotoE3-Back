@@ -3,8 +3,8 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class solicitante extends Model {
     static associate(models) {
-      solicitante.hasMany(models.usuario, { as: "usuario", foreignKey: "id" });
-      solicitante.hasMany(models.direccion, { as: "direccion", foreignKey: "id" });
+      solicitante.belongsTo(models.usuario, { as: "usuario", foreignKey: "id" });
+      solicitante.belongsTo(models.direccion, { as: "direccion", foreignKey: "id" });
     }
   }
   solicitante.init(
@@ -12,11 +12,13 @@ module.exports = (sequelize, DataTypes) => {
       nombre: DataTypes.STRING,
       ap_paterno: DataTypes.STRING,
       ap_materno: DataTypes.STRING,
-      sexo: DataTypes.STRING,
+      sexo: DataTypes.ENUM(['Femenino', 'Masculino','Prefiero No Decirlo']),
       fechaNacimiento: DataTypes.DATE,
       estadoCivil:DataTypes.STRING,
       edad:DataTypes.INT,
       video:DataTypes.STRING,
+      id_usuario:DataTypes.INTEGER,
+      id_direccion:DataTypes.INTEGER,
 
     },
     {

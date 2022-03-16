@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING(30)
       },
       sexo: {
-        type: Sequelize.STRING(10)
+        type: Sequelize.ENUM(['Femenino', 'Masculino','Prefiero No Decirlo'])
       },
       fecha_nacimiento: {
         type: Sequelize.DATE,
@@ -32,9 +32,27 @@ module.exports = {
       edad: {
         type: Sequelize.INTEGER
       },
-     // video: {
-     //   type: Sequelize.STRING(10)
-     // },
+      video: {
+        type: Sequelize.STRING
+      },
+      id_usuario: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "usuario",
+          key: "id",
+        },
+        onUpdated: "CASCADE",
+        onDeleted: "CASCADE",
+      },
+      id_direccion: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "direccion",
+          key: "id",
+        },
+        onUpdated: "CASCADE",
+        onDeleted: "CASCADE",
+      },
     });
   },
   async down(queryInterface, Sequelize) {
