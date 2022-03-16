@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       sexo: DataTypes.ENUM(['Femenino', 'Masculino','Prefiero No Decirlo']),
       fechaNacimiento: DataTypes.DATE,
       estadoCivil:DataTypes.STRING,
-      edad:DataTypes.INT,
+      edad:DataTypes.INTEGER,
       video:DataTypes.STRING,
       id_usuario:DataTypes.INTEGER,
       id_direccion:DataTypes.INTEGER,
