@@ -7,7 +7,7 @@ const router = Router();
 
 router
   .route("/usuario")
-  .get(usuario.getUsuario)
+  .get(usuario.getUsuarios)
   .post(validCreateUpUsuario, usuario.addUsuario);
 
 router
