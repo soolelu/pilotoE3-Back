@@ -1,16 +1,10 @@
 module.exports = {
-  clientNameRequired: "El nombre del cliente es requerido",
-  clientEmailRequired: "El email del cliente es requerido",
-  clientNotFound: "No se encontró el cliente",
-  clientDeleted: "Se ha eliminado el cliente",
+  usuarioPasswordRequired: "El password del usuario es requerido",
+  usuarioEmailRequired: "El email del usuario es requerido",
+  usuario: "No se encontró el usuario",
+  usuario: "Se ha eliminado el usuario",
 
-  saucerNameRequired: "El nombre del platillo es requerido",
-  saucerPriceRequired: "El precio del platillo es requerido",
-  saucerNotFound: " El platillo no se encontró",
-  saucerDeleted: " Se ha eliminado el pletillo",
+ 
 
-  clientRequired: "El cliente es requerido",
-  saucerRequired: "El platillo es requerido",
-  orderNotFound: "No se encontró la orden",
-  orderDeleted: "Se ha eliminado la orden",
-};
+  clientRequired: "El usuario es requerido",
+}
