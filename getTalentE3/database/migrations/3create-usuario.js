@@ -31,6 +31,24 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      id_rol: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "rol",
+          key: "id",
+        },
+        onUpdated: "CASCADE",
+        onDeleted: "CASCADE",
+      },
+      id_empresa: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "empresa",
+          key: "id",
+        },
+        onUpdated: "CASCADE",
+        onDeleted: "CASCADE",
+      },
     });
   },
   async down(queryInterface, Sequelize) {

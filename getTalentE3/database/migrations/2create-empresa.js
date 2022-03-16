@@ -9,16 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       nombre: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       descripcion: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.TEXT,
         allowNull: false,
       },
-     // logotipo: {
-     //   type: Sequelize.STRING(30)
-     // },
+      logotipo: {
+        type: Sequelize.STRING,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       nombre: DataTypes.STRING,
       ap_paterno: DataTypes.STRING,
       ap_materno: DataTypes.STRING,
-      sexo: DataTypes.STRING,
+      sexo: DataTypes.ENUM(['Femenino', 'Masculino','Prefiero No Decirlo']),
       fechaNacimiento: DataTypes.DATE,
       estadoCivil:DataTypes.STRING,
       edad:DataTypes.INT,
