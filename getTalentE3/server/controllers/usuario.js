@@ -143,11 +143,12 @@ const login = async (req, res) => {
       },
      
     });
+    if (!usuario) {
+      return res.status(401).send("El email no existe");
+    } 
     if (validacion.activacion==false) {
       return res.status(204).send("Revisa tu correo para activar tu cuenta");
-    } else if (!usuario) {
-      return res.status(401).send("El email no existe");
-    }
+    } 
 
     const match = await bcrypt.compareSync(body.password, usuario.password);
     console.log(match);
