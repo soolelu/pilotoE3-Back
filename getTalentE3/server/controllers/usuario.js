@@ -57,11 +57,6 @@ const addUsuario = async (req, res) => {
     httpError(res, error);
   }
 };
-  //Para encriptar 
-
-
-
-
 
 //EP to update client
 const updateUsuario = async (req, res) => {
@@ -118,21 +113,21 @@ const deleteUsuario = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { body} = req;
 
-    const user = await models.usuario.findOne({
+    const usuario = await models.usuario.findOne({
       where: {
-        email: email,
+        email: body.email,
         status: true,
       },
-      attributes: ["id", "name", "email", "password", "rol"],
+       //attributes: ["id", "name", "email", "password", "rol"],
     });
 
     if (!usuario) {
       return res.status(401).send("Email does not exist");
     }
 
-    const match = await bcrypt.compareSync(password, usuario.password);
+    const match = await bcrypt.compareSync(body.password, usuario.password);
     console.log(match);
 
     if (match === false) {
@@ -140,10 +135,10 @@ const login = async (req, res) => {
     }
 
     const payload = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      id: usuario.id,
+      name: usuario.name,
+      email: usuario.email,
+      //role: usuario.role,
     };
 
     return res.status(200).send({
