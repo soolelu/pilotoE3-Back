@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   usuario.init(
     {
-      phone: DataTypes.STRING,
+      //phone: DataTypes.STRING,
       email: { type: DataTypes.STRING, validate: { isEmail: true } },
       password: DataTypes.STRING,
       statusDelete: DataTypes.BOOLEAN,
       createdAt: DataTypes.DATE,
-      updateAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
       id_rol: DataTypes.INTEGER,
       id_empresa: DataTypes.INTEGER,
 
@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "usuario",
+      tableName: "usuario"
     }
   );
   return usuario;
