@@ -1,6 +1,7 @@
 const models = require("../../database/models");
 const { httpError, response } = require("../helpers/responses");
 const { usuarioNotFound, usuarioDeleted } = require("../helpers/constants.js");
+const bcrypt = require("bcryptjs");
 //const usuario = require("../../database/models/usuario");
 
 // EP to get all clients
@@ -42,10 +43,10 @@ const getUsuarioById = async (req, res) => {
 const addUsuario = async (req, res) => {
   try {
     const { body } = req;
-
+    const encPass = bcrypt.hashSync(body.password)
     const usuario = await models.usuario.create({
       email: body.email,
-      password: body.password,
+      password: encPass,
       //falta agregar si es empresa, solicitante o admin
     });
 
