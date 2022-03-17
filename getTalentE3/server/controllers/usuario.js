@@ -1,6 +1,6 @@
 const models = require("../../database/models");
 const { httpError, response } = require("../helpers/responses");
-const { usuarioNotFound, usuarioDeleted } = require("../helpers/constants.js");
+const { usuarioNotFound, usuarioDeleted, usuario } = require("../helpers/constants.js");
 const bcrypt = require("bcryptjs");
 //const usuario = require("../../database/models/usuario");
 
@@ -43,12 +43,21 @@ const getUsuarioById = async (req, res) => {
 const addUsuario = async (req, res) => {
 
   try {
+    const letras = /[A-Z]/; //rango de letras
+    const num = /[0-9]/;//rango numeros
+    const caracter = /[!-/]/;//rango carcateres
     const { body } = req;
     if (body.password.length < 6 || body.password.length > 20) {
-      return res
-        .status(401)
-        .send("Password must have between 6 to 20 characters");
+      return res.status(401).send("La contraseña debe tener de 6 a 20 caracteres");
+    }else if(letras.test(body.password)==false){
+      return res.status(401).send("La contraseña debe tener al menos una mayuscula");
+    }else if(num.test(body.password)==false){
+      return res.status(401).send("La contraseña debe tener al menos un numero");
+    }else if(caracter.test(body.password)==false){
+      return res.status(401).send("La contraseña debe tener al menos un carcater");
     }
+
+
     const encPass = bcrypt.hashSync(body.password)
     let rol;
     if(body.solicitante==true){
@@ -68,8 +77,10 @@ const addUsuario = async (req, res) => {
     const usuario = await models.usuario.create({
       email: body.email,
       password: encPass,
-      id_rol: rol.id
-   //falta agregar si es empresa, solicitante o admin
+      id_rol: rol.id,
+      //quitar el statusDELETE este se cambia con la confirmación del password
+      statusDelete: body.statusDelete
+   
     });
 
             
@@ -114,7 +125,7 @@ const deleteUsuario = async (req, res) => {
 
     const usuario = await models.usuario.findOne({
       where: {
-        id,
+        email: body.email,
         statusDelete: false,
       },
     });
@@ -140,7 +151,7 @@ const login = async (req, res) => {
     const usuario = await models.usuario.findOne({
       where: {
         email: body.email,
-        statusDelete: false,
+        statusDelete: false
       },
        //attributes: ["id", "email", "password", "id_rol"],
     });
