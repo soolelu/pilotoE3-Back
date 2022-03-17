@@ -44,6 +44,11 @@ const addUsuario = async (req, res) => {
 
   try {
     const { body } = req;
+    if (body.password.length < 6 || body.password.length > 20) {
+      return res
+        .status(401)
+        .send("Password must have between 6 to 20 characters");
+    }
     const encPass = bcrypt.hashSync(body.password)
     let rol;
     if(body.solicitante==true){
@@ -66,6 +71,8 @@ const addUsuario = async (req, res) => {
       id_rol: rol.id
    //falta agregar si es empresa, solicitante o admin
     });
+
+            
 
     return res.status(200).send(usuario);
   } catch (error) {
