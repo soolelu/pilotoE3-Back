@@ -44,14 +44,20 @@ const getUsuarioById = async (req, res) => {
 const addUsuario = async (req, res) => {
   try {
     const { body } = req;
+    if (body.password.length < 6 || body.password.length > 20) {
+      return res
+        .status(401)
+        .send("Password must have between 6 to 20 characters");
+    }
     const encPass = bcrypt.hashSync(body.password)
     const usuario = await models.usuario.create({
       email: body.email,
       password: encPass,
 
-
       //falta agregar si es empresa, solicitante o admin
     });
+
+            
 
     return res.status(200).send(usuario);
   } catch (error) {
