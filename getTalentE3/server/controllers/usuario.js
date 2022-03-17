@@ -61,7 +61,7 @@ const updateUsuario = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
 
-    const client = await models.usuario.findOne({
+    const usuario = await models.usuario.findOne({
       where: {
         id,
         statusDelete: false,
