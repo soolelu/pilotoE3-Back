@@ -11,10 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       solicitante: DataTypes.BOOLEAN,
       empleador: DataTypes.BOOLEAN,
       admin: DataTypes.BOOLEAN,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,
       modelName: "rol",
+      tableName: "rol"
     }
   );
   return rol;

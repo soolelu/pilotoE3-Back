@@ -10,12 +10,18 @@ router
   .route("/usuario")
   .get(usuario.getUsuarios)
   .post(validCreateUpUsuario, usuario.addUsuario);
+ 
+  router
+  .route("/login")
+  .post(usuario.login)
+
 
 router
   .route("/usuario/:id")
   .get(usuario.getUsuarioById)
   .put(usuario.updateUsuario)
-  .delete(usuario.deleteUsuario);
+  .delete(usuario.deleteUsuario)
+  
 
 
 module.exports = { router };

@@ -35,6 +35,14 @@ module.exports = {
       video: {
         type: Sequelize.STRING
       },
+      createdAt: {
+        //allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        //allowNull: false,
+        type: Sequelize.DATE,
+      },
       id_usuario: {
         type: Sequelize.INTEGER,
         references: {

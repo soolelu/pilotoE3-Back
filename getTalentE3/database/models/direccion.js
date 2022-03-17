@@ -11,11 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       pais: DataTypes.STRING,
       estado: DataTypes.STRING,
       municipio: DataTypes.STRING,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
       
     },
     {
       sequelize,
       modelName: "direccion",
+      tableName: "direccion"
     }
   );
   return direccion;

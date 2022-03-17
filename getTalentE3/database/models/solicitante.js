@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       estadoCivil:DataTypes.STRING,
       edad:DataTypes.INTEGER,
       video:DataTypes.STRING,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
       id_usuario:DataTypes.INTEGER,
       id_direccion:DataTypes.INTEGER,
 
@@ -24,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "solicitante",
+      tableName: "solicitante"
     }
   );
   return solicitante;

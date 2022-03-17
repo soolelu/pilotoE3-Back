@@ -2,7 +2,6 @@ const models = require("../../database/models");
 const { httpError, response } = require("../helpers/responses");
 const { usuarioNotFound, usuarioDeleted } = require("../helpers/constants.js");
 const bcrypt = require("bcryptjs");
-
 //const usuario = require("../../database/models/usuario");
 
 // EP to get all clients
@@ -42,6 +41,7 @@ const getUsuarioById = async (req, res) => {
 
 //EP to add client
 const addUsuario = async (req, res) => {
+
   try {
     const { body } = req;
     if (body.password.length < 6 || body.password.length > 20) {
@@ -50,11 +50,26 @@ const addUsuario = async (req, res) => {
         .send("Password must have between 6 to 20 characters");
     }
     const encPass = bcrypt.hashSync(body.password)
+    let rol;
+    if(body.solicitante==true){
+      rol= await models.rol.create({
+        solicitante: true,
+      })
+
+    }else if(body.empleador==true){
+      rol= await models.rol.create({
+        empleador: true,
+      })
+    }else if(body.admin==true){
+      rol= await models.rol.create({
+        admin: true,
+      })
+    }  
     const usuario = await models.usuario.create({
       email: body.email,
       password: encPass,
-
-      //falta agregar si es empresa, solicitante o admin
+      id_rol: rol.id
+   //falta agregar si es empresa, solicitante o admin
     });
 
             
@@ -64,11 +79,6 @@ const addUsuario = async (req, res) => {
     httpError(res, error);
   }
 };
-  //Para encriptar 
-
-
-
-
 
 //EP to update client
 const updateUsuario = async (req, res) => {
@@ -125,32 +135,40 @@ const deleteUsuario = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { body} = req;
 
-    const user = await models.users.findOne({
+    const usuario = await models.usuario.findOne({
       where: {
-        email: email,
-        status: true,
+        email: body.email,
+        statusDelete: false,
       },
-      attributes: ["id", "name", "email", "password", "role"],
+       //attributes: ["id", "email", "password", "id_rol"],
     });
+    const validacion = await models.usuario.findOne({
+      where: {
+        id: usuario.id_rol
+      },
+     
+    });
+    if (!usuario) {
+      return res.status(401).send("El email no existe");
+    } 
+    if (validacion.activacion==false) {
+      return res.status(204).send("Revisa tu correo para activar tu cuenta");
+    } 
 
-    if (!user) {
-      return res.status(401).send("Email does not exist");
-    }
-
-    const match = await bcrypt.compareSync(password, user.password);
+    const match = await bcrypt.compareSync(body.password, usuario.password);
     console.log(match);
 
     if (match === false) {
-      return res.status(401).send("Password does not match");
+      return res.status(401).send("Password incorrecto");
     }
 
     const payload = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      id: usuario.id,
+      name: usuario.name,
+      email: usuario.email,
+      rol: usuario.id_rol,
     };
 
     return res.status(200).send({
