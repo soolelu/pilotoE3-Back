@@ -63,7 +63,7 @@ const addUsuario = async (req, res) => {
     const usuario = await models.usuario.create({
       email: body.email,
       password: encPass,
-      rol_id: rol.id
+      id_rol: rol.id
    //falta agregar si es empresa, solicitante o admin
     });
 
@@ -133,27 +133,34 @@ const login = async (req, res) => {
     const usuario = await models.usuario.findOne({
       where: {
         email: body.email,
-        status: true,
+        statusDelete: false,
       },
-       //attributes: ["id", "name", "email", "password", "rol"],
+       //attributes: ["id", "email", "password", "id_rol"],
     });
-
-    if (!usuario) {
-      return res.status(401).send("Email does not exist");
+    const validacion = await models.usuario.findOne({
+      where: {
+        id: usuario.id_rol
+      },
+     
+    });
+    if (validacion.activacion==false) {
+      return res.status(204).send("Revisa tu correo para activar tu cuenta");
+    } else if (!usuario) {
+      return res.status(401).send("El email no existe");
     }
 
     const match = await bcrypt.compareSync(body.password, usuario.password);
     console.log(match);
 
     if (match === false) {
-      return res.status(401).send("Password does not match");
+      return res.status(401).send("Password incorrecto");
     }
 
     const payload = {
       id: usuario.id,
       name: usuario.name,
       email: usuario.email,
-      //role: usuario.role,
+      rol: usuario.id_rol,
     };
 
     return res.status(200).send({

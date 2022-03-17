@@ -21,7 +21,7 @@ module.exports = {
       },
       statusDelete: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
       },
       createdAt: {
         //allowNull: false,
