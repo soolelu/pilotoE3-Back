@@ -47,7 +47,7 @@ const addUsuario = async (req, res) => {
     const encPass = bcrypt.hashSync(body.password)
     const usuario = await models.usuario.create({
       email: body.email,
-      password: body.password,
+      password: encPass,
 
 
       //falta agregar si es empresa, solicitante o admin
@@ -70,7 +70,7 @@ const updateUsuario = async (req, res) => {
     const { id } = req.params;
     const { body } = req;
 
-    const client = await models.usuario.findOne({
+    const usuario = await models.usuario.findOne({
       where: {
         id,
         statusDelete: false,
@@ -87,6 +87,7 @@ const updateUsuario = async (req, res) => {
     return res.status(200).send(usuario);
   } catch (error) {
     httpError(res, error);
+
   }
 };
 
