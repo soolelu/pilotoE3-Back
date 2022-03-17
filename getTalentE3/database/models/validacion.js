@@ -12,12 +12,16 @@ module.exports = (sequelize, DataTypes) => {
       cod_activacion: DataTypes.STRING,
       cod_password_olvidada: DataTypes.STRING,
       activacion: DataTypes.BOOLEAN,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
       id_usuario:DataTypes.INTEGER,
+
       
     },
     {
       sequelize,
       modelName: "validacion",
+      tableName:  "validacion"
     }
   );
   return validacion;

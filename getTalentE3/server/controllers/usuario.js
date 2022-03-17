@@ -41,15 +41,30 @@ const getUsuarioById = async (req, res) => {
 
 //EP to add client
 const addUsuario = async (req, res) => {
+
   try {
     const { body } = req;
     const encPass = bcrypt.hashSync(body.password)
+    let rol;
+    if(body.solicitante==true){
+      rol= await models.rol.create({
+        solicitante: true,
+      })
+
+    }else if(body.empleador==true){
+      rol= await models.rol.create({
+        empleador: true,
+      })
+    }else if(body.admin==true){
+      rol= await models.rol.create({
+        admin: true,
+      })
+    }  
     const usuario = await models.usuario.create({
       email: body.email,
       password: encPass,
-
-
-      //falta agregar si es empresa, solicitante o admin
+      rol_id: rol.id
+   //falta agregar si es empresa, solicitante o admin
     });
 
     return res.status(200).send(usuario);

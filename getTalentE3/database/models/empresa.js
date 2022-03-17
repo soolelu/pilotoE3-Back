@@ -11,11 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       nombre: DataTypes.STRING,
       descripcion: DataTypes.TEXT,
       logotipo: DataTypes.STRING,
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
       
     },
     {
       sequelize,
       modelName: "empresa",
+      tableName: "empresa"
     }
   );
   return empresa;
