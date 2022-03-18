@@ -60,6 +60,8 @@ const addUsuario = async (req, res) => {
 
     const encPass = bcrypt.hashSync(body.password)
     let rol;
+    
+    
     if(body.solicitante==true){
       rol= await models.rol.create({
         solicitante: true,
@@ -69,11 +71,27 @@ const addUsuario = async (req, res) => {
       rol= await models.rol.create({
         empleador: true,
       })
+      const empresa= await models.empresa.create({
+        name:hola
+      })
+      const usuario = await models.usuario.create({
+        email: body.email,
+        password: encPass,
+        id_rol: rol.id,
+        id_empresa: empresa.id,
+        //quitar el statusDELETE este se cambia con la confirmación del password
+        statusDelete: body.statusDelete
+     
+      });
+
+      return res.status(200).send(usuario);
+      
     }else if(body.admin==true){
       rol= await models.rol.create({
         admin: true,
       })
     }  
+    
     const usuario = await models.usuario.create({
       email: body.email,
       password: encPass,
