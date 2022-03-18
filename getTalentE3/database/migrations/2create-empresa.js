@@ -10,11 +10,11 @@ module.exports = {
       },
       nombre: {
         type: Sequelize.STRING,
-        allowNull: false,
+       // allowNull: false,
       },
       descripcion: {
         type: Sequelize.TEXT,
-        allowNull: false,
+       // allowNull: false,
       },
       logotipo: {
         type: Sequelize.STRING,
